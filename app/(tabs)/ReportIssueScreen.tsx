@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
@@ -11,6 +11,7 @@ import { Strings } from '../../constants/strings';
 import { Theme } from '../../constants/theme';
 import { useErrorHandler } from '../../hooks/useErrorHandler';
 import { useForm } from '../../hooks/useForm';
+import { createIssue } from '../../services/issuesService';
 import { IssueReportForm } from '../../types';
 import { initializeRTL } from '../../utils/rtlConfig';
 import { ValidationRules } from '../../utils/validation';
@@ -32,20 +33,20 @@ export default function ReportIssueScreen(): React.JSX.Element {
     },
     onSubmit: async (values) => {
       try {
-        // Log the form data
-        console.log('Issue Report Submitted:', values);
         
-        // TODO: Send to API
-        // await api.submitIssueReport(values);
+        // Submit issue report using local storage
+        const issueData = {
+          title: values.title,
+          details: values.details,
+          userId: 'current-user-id', // TODO: Get from auth context
+        };
         
-        // Show success message
-        // In a real app, you might want to show a toast or navigate back
-        console.log('Report submitted successfully');
+        const result = await createIssue(issueData);
         
         // Reset form
         form.reset();
       } catch (error) {
-        handleError(error as Error, 'שגיאה בשליחת הדיווח');
+        handleError(error as Error, 'שגיאה בשמירת הדיווח');
       }
     },
   });
