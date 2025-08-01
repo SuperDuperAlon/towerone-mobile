@@ -1,0 +1,47 @@
+export const Strings = {
+  // Common
+  common: {
+    submit: 'שלח',
+    cancel: 'ביטול',
+    save: 'שמור',
+    edit: 'ערוך',
+    delete: 'מחק',
+    loading: 'טוען...',
+    error: 'שגיאה',
+    success: 'הצלחה',
+    required: 'שדה חובה',
+  },
+  
+  // Home Screen
+  home: {
+    greeting: 'שלום',
+    apartment: 'דירה',
+    reportIssue: 'דיווח תקלה',
+    committeeMessages: 'הודעות הוועד',
+    userDetails: 'פרטי משתמש',
+  },
+  
+  // Report Issue Screen
+  reportIssue: {
+    title: 'דיווח תקלה',
+    issueTitle: 'נושא התקלה',
+    issueTitlePlaceholder: 'הכנס את נושא התקלה',
+    issueDetails: 'פרטים נוספים',
+    issueDetailsPlaceholder: 'תאר את התקלה בפירוט',
+    attachImage: '📷 צרף תמונה',
+    sendReport: 'שלח דיווח',
+    fillAllFields: 'אנא מלא את כל השדות הנדרשים',
+    reportSentSuccess: 'הדיווח נשלח בהצלחה',
+  },
+  
+  // Validation Messages
+  validation: {
+    required: 'שדה זה הוא חובה',
+    minLength: (min: number) => `מינימום ${min} תווים`,
+    maxLength: (max: number) => `מקסימום ${max} תווים`,
+    invalidEmail: 'כתובת אימייל לא תקינה',
+    invalidPhone: 'מספר טלפון לא תקין',
+  },
+} as const;
+
+export type StringKey = keyof typeof Strings; 
