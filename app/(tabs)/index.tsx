@@ -31,7 +31,7 @@ export default function HomeScreen(): React.JSX.Element {
         <ActionButton
           icon="📋"
           title={Strings.home.reportIssue}
-          onPress={() => router.push('/(tabs)/ReportIssueScreen')}
+          onPress={() => router.push('/issues/ReportIssueScreen')}
         />
 
         <ActionButton
