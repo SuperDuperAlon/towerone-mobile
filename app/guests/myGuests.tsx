@@ -1,4 +1,4 @@
-import { AddGuestForm } from '@/components/AddGuestForm';
+import { AddGuestForm } from '@/components/forms/AddGuestForm';
 import { Button } from '@/components/ui/Button';
 import { Strings } from '@/constants/strings';
 import { Theme } from '@/constants/theme';

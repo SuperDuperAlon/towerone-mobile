@@ -19,8 +19,6 @@ export function AddGuestForm({ onAddGuest }: AddGuestFormProps): React.JSX.Eleme
     }
   };
 
-  
-
   return (
     <View style={styles.container}>
       <TextInput

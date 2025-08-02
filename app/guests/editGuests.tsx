@@ -1,4 +1,4 @@
-import { EditGuestForm } from '@/components/EditGuestForm';
+import { EditGuestForm } from '@/components/forms/EditGuestForm';
 import { Theme } from '@/constants/theme';
 import { Guest, updateGuest } from '@/services/guestService';
 import { useLocalSearchParams, useRouter } from 'expo-router';

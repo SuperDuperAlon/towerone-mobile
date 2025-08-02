@@ -1,5 +1,5 @@
-import { ActionButton } from '@/components/ActionButton';
-import { ProfileHeader } from '@/components/ProfileHeader';
+import { ActionButton } from '@/components/buttons/ActionButton';
+import { ProfileHeader } from '@/components/headers/ProfileHeader';
 import { Strings } from '@/constants/strings';
 import { Theme } from '@/constants/theme';
 import { User } from '@/types';

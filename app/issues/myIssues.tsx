@@ -1,4 +1,4 @@
-import { IssuesList } from '@/components/IssuesList';
+import { IssuesList } from '@/components/lists/IssuesList';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Strings } from '@/constants/strings';
