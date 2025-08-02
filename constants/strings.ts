@@ -17,6 +17,7 @@ export const Strings = {
     greeting: 'שלום',
     apartment: 'דירה',
     reportIssue: 'דיווח תקלה',
+    guests: 'אורחים',
     committeeMessages: 'הודעות הוועד',
     userDetails: 'פרטי משתמש',
   },
@@ -35,6 +36,14 @@ export const Strings = {
     allIssues: 'כל הדיווחים',
     noIssues: 'אין דיווחים עדיין',
     status: 'סטטוס',
+  },
+  
+  // Guests Screen
+  guests: {
+    myGuestsTitle: 'האורחים שלי',
+    noGuests: 'אין אורחים להצגה.',
+    visitDateLabel: 'תאריך ביקור',
+    addGuestTitle: 'הוסף אורח חדש',
   },
   
   // Validation Messages

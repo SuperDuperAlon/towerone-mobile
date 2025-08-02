@@ -19,6 +19,7 @@ export const Colors = {
   background: '#fff',
   backgroundSecondary: '#f8f9fa',
   backgroundTertiary: '#e9ecef',
+  card: '#fff',
   
   // Border colors
   border: '#e9ecef',
