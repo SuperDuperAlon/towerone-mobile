@@ -1,26 +1,55 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
   Text,
-  View,
+  View
 } from 'react-native';
+import { IssuesList } from '../../components/IssuesList';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
 import { Strings } from '../../constants/strings';
 import { Theme } from '../../constants/theme';
 import { useErrorHandler } from '../../hooks/useErrorHandler';
 import { useForm } from '../../hooks/useForm';
-import { createIssue } from '../../services/issuesService';
-import { IssueReportForm } from '../../types';
+import { createIssue, getIssues } from '../../services/issuesService';
+import { IssueReport, IssueReportForm } from '../../types';
 import { initializeRTL } from '../../utils/rtlConfig';
 import { ValidationRules } from '../../utils/validation';
-
 // Initialize RTL layout for Hebrew
 initializeRTL();
 
+
+
+
+
 export default function ReportIssueScreen(): React.JSX.Element {
   const { handleError } = useErrorHandler();
+
+
+
+    const [issues, setIssues] = useState<IssueReport[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<Error | null>(null);
+
+    useEffect(() => {
+      const fetchIssues = async () => {
+        setLoading(true);
+        try {
+          const data = await getIssues();
+          setIssues(data);
+        } catch (err) {
+          setError(err as Error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      // Fetch issues on mount
+      fetchIssues();
+
+    }, []);
+
 
   const form = useForm<IssueReportForm>({
     initialValues: {
@@ -33,16 +62,18 @@ export default function ReportIssueScreen(): React.JSX.Element {
     },
     onSubmit: async (values) => {
       try {
-        
         // Submit issue report using local storage
         const issueData = {
           title: values.title,
           details: values.details,
           userId: 'current-user-id', // TODO: Get from auth context
         };
-        
+
         const result = await createIssue(issueData);
-        
+
+        // Update UI: add new issue to the top of the list
+        setIssues((prevIssues) => [result, ...prevIssues]);
+
         // Reset form
         form.reset();
       } catch (error) {
@@ -102,6 +133,15 @@ export default function ReportIssueScreen(): React.JSX.Element {
             size="large"
           />
         </View>
+      </View>
+      {/* List of All Issues */}
+
+      {/* List of All Issues */}
+      <View style={{ marginTop: 32 }}>
+        <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>
+          {Strings.reportIssue.allIssues}
+        </Text>
+        <IssuesList issues={issues} />
       </View>
     </ScrollView>
   );

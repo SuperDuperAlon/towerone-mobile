@@ -24,7 +24,12 @@ export const createIssue = async (
 
 // READ - Get all issues
 export const getIssues = async (): Promise<IssueReport[]> => {
-  return await getAllItems<IssueReport & { id: string }>(STORAGE_KEY);
+  const issues = await getAllItems<IssueReport & { id: string }>(STORAGE_KEY);
+  return issues.sort((a, b) => {
+    const dateA = new Date(a.createdAt).getTime();
+    const dateB = new Date(b.createdAt).getTime();
+    return dateB - dateA;
+  });
 };
 
 

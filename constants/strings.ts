@@ -32,6 +32,9 @@ export const Strings = {
     sendReport: 'שלח דיווח',
     fillAllFields: 'אנא מלא את כל השדות הנדרשים',
     reportSentSuccess: 'הדיווח נשלח בהצלחה',
+    allIssues: 'כל הדיווחים',
+    noIssues: 'אין דיווחים עדיין',
+    status: 'סטטוס',
   },
   
   // Validation Messages
