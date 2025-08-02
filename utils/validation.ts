@@ -1,5 +1,5 @@
-import { Strings } from '../constants/strings';
-import { ValidationErrors, ValidationRule } from '../types';
+import { Strings } from '@/constants/strings';
+import { ValidationErrors, ValidationRule } from '@/types';
 
 export class ValidationError extends Error {
   constructor(message: string) {

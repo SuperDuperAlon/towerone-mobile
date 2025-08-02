@@ -1,6 +1,6 @@
-import { useState, useCallback } from 'react';
-import { ValidationRule, ValidationErrors } from '../types';
-import { validateField, validateForm } from '../utils/validation';
+import { ValidationErrors, ValidationRule } from '@/types';
+import { validateField, validateForm } from '@/utils/validation';
+import { useCallback, useState } from 'react';
 
 interface UseFormOptions<T> {
   initialValues: T;

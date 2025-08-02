@@ -1,13 +1,13 @@
+import { Colors } from '@/constants/colors';
+import { Theme } from '@/constants/theme';
+import { ButtonProps } from '@/types';
 import React from 'react';
 import {
-    ActivityIndicator,
-    StyleSheet,
-    Text,
-    TouchableOpacity
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity
 } from 'react-native';
-import { Colors } from '../../constants/colors';
-import { Theme } from '../../constants/theme';
-import { ButtonProps } from '../../types';
 
 export const Button: React.FC<ButtonProps> = ({
   title,

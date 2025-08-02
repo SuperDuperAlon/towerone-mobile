@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Colors } from '../constants/colors';
-import { Strings } from '../constants/strings';
-import { Theme } from '../constants/theme';
-import { User } from '../types';
+import { Colors } from '@/constants/colors';
+import { Strings } from '@/constants/strings';
+import { Theme } from '@/constants/theme';
+import { User } from '@/types';
 
 interface ProfileHeaderProps {
   user: User;

@@ -1,5 +1,5 @@
-import { IssueReport } from '../types';
-import { generateId } from '../utils/utilFunctions';
+import { IssueReport } from '@/types';
+import { generateId } from '@/utils/utilFunctions';
 import { addItem, getAllItems, removeItem, updateItem } from './localStorageService';
 
 

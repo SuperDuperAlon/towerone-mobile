@@ -1,3 +1,14 @@
+import { IssuesList } from '@/components/IssuesList';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Strings } from '@/constants/strings';
+import { Theme } from '@/constants/theme';
+import { useErrorHandler } from '@/hooks/useErrorHandler';
+import { useForm } from '@/hooks/useForm';
+import { createIssue, getIssues } from '@/services/issuesService';
+import { IssueReport, IssueReportForm } from '@/types';
+import { initializeRTL } from '@/utils/rtlConfig';
+import { ValidationRules } from '@/utils/validation';
 import React, { useEffect, useState } from 'react';
 import {
   ScrollView,
@@ -5,17 +16,6 @@ import {
   Text,
   View
 } from 'react-native';
-import { IssuesList } from '../../components/IssuesList';
-import { Button } from '../../components/ui/Button';
-import { Input } from '../../components/ui/Input';
-import { Strings } from '../../constants/strings';
-import { Theme } from '../../constants/theme';
-import { useErrorHandler } from '../../hooks/useErrorHandler';
-import { useForm } from '../../hooks/useForm';
-import { createIssue, getIssues } from '../../services/issuesService';
-import { IssueReport, IssueReportForm } from '../../types';
-import { initializeRTL } from '../../utils/rtlConfig';
-import { ValidationRules } from '../../utils/validation';
 // Initialize RTL layout for Hebrew
 initializeRTL();
 

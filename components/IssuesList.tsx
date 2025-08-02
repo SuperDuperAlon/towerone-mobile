@@ -1,7 +1,7 @@
+import { Strings } from '@/constants/strings';
+import { IssueReport } from '@/types';
 import React from 'react';
 import { Text, View } from 'react-native';
-import { Strings } from '../constants/strings';
-import { IssueReport } from '../types';
 
 interface IssuesListProps {
   issues: IssueReport[];

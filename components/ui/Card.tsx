@@ -5,9 +5,9 @@ import {
   StyleSheet,
   ViewStyle,
 } from 'react-native';
-import { Colors } from '../../constants/colors';
-import { Theme } from '../../constants/theme';
-import { CardProps } from '../../types';
+import { Colors } from '@/constants/colors';
+import { Theme } from '@/constants/theme';
+import { CardProps } from '@/types';
 
 export const Card: React.FC<CardProps> = ({
   children,

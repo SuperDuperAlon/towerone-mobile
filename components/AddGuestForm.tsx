@@ -1,7 +1,7 @@
+import { Strings } from '@/constants/strings';
+import { Theme } from '@/constants/theme';
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { Strings } from '../constants/strings';
-import { Theme } from '../constants/theme';
 
 interface AddGuestFormProps {
   onAddGuest: (name: string, visitDate: string) => void;

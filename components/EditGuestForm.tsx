@@ -1,9 +1,9 @@
+import { Strings } from '@/constants/strings';
+import { Theme } from '@/constants/theme';
+import { Guest } from '@/services/guestService';
 import { router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { Strings } from '../constants/strings';
-import { Theme } from '../constants/theme';
-import { Guest } from '../services/guestService';
 
 interface EditGuestFormProps {
   guest: Guest;

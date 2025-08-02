@@ -1,7 +1,7 @@
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { initializeRTL } from '@/utils/rtlConfig';
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import { initializeRTL } from '../../utils/rtlConfig';
 
 // Initialize RTL layout for Hebrew
 initializeRTL();

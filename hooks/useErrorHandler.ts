@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { Alert } from 'react-native';
-import { Strings } from '../constants/strings';
+import { Strings } from '@/constants/strings';
 
 export interface ErrorHandlerOptions {
   showAlert?: boolean;

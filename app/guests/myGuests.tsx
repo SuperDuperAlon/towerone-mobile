@@ -1,11 +1,11 @@
-import { Button } from '@/components/ui';
+import { AddGuestForm } from '@/components/AddGuestForm';
+import { Button } from '@/components/ui/Button';
+import { Strings } from '@/constants/strings';
+import { Theme } from '@/constants/theme';
 import { createGuest, deleteGuest, Guest } from '@/services/guestService';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
-import { AddGuestForm } from '../../components/AddGuestForm';
-import { Strings } from '../../constants/strings';
-import { Theme } from '../../constants/theme';
 
 
 export default function MyGuestsScreen(): React.JSX.Element {

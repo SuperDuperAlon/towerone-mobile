@@ -1,7 +1,7 @@
+import { Colors } from '@/constants/colors';
+import { Theme } from '@/constants/theme';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Colors } from '../constants/colors';
-import { Theme } from '../constants/theme';
 
 interface ActionButtonProps {
   icon: string;

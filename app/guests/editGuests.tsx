@@ -1,9 +1,9 @@
+import { EditGuestForm } from '@/components/EditGuestForm';
+import { Theme } from '@/constants/theme';
 import { Guest, updateGuest } from '@/services/guestService';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, StyleSheet, View } from 'react-native';
-import { EditGuestForm } from '../../components/EditGuestForm';
-import { Theme } from '../../constants/theme';
 
 export default function EditGuestsScreen(): React.JSX.Element {
   const router = useRouter();

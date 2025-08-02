@@ -1,12 +1,12 @@
+import { ActionButton } from '@/components/ActionButton';
+import { ProfileHeader } from '@/components/ProfileHeader';
+import { Strings } from '@/constants/strings';
+import { Theme } from '@/constants/theme';
+import { User } from '@/types';
+import { initializeRTL } from '@/utils/rtlConfig';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ActionButton } from '../../components/ActionButton';
-import { ProfileHeader } from '../../components/ProfileHeader';
-import { Strings } from '../../constants/strings';
-import { Theme } from '../../constants/theme';
-import { User } from '../../types';
-import { initializeRTL } from '../../utils/rtlConfig';
 
 // Initialize RTL layout for Hebrew
 initializeRTL();

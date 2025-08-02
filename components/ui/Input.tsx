@@ -6,9 +6,9 @@ import {
   StyleSheet,
   TextInputProps,
 } from 'react-native';
-import { Colors } from '../../constants/colors';
-import { Theme } from '../../constants/theme';
-import { InputProps } from '../../types';
+import { Colors } from '@/constants/colors';
+import { Theme } from '@/constants/theme';
+import { InputProps } from '@/types';
 
 export const Input: React.FC<InputProps> = ({
   label,
