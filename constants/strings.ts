@@ -44,6 +44,7 @@ export const Strings = {
     noGuests: 'אין אורחים להצגה.',
     visitDateLabel: 'תאריך ביקור',
     addGuestTitle: 'הוסף אורח חדש',
+    editGuestTitle: 'ערוך אורח',
   },
   
   // Validation Messages

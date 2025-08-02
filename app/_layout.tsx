@@ -21,6 +21,15 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="guests/editGuests" options={{ 
+          title: 'ערוך אורח',
+          headerShown: true,
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: colorScheme === 'dark' ? '#1C1C1E' : '#FFFFFF',
+          },
+          headerTintColor: colorScheme === 'dark' ? '#FFFFFF' : '#000000',
+        }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />
