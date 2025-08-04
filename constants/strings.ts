@@ -45,6 +45,13 @@ export const Strings = {
     visitDateLabel: 'תאריך ביקור',
     addGuestTitle: 'הוסף אורח חדש',
     editGuestTitle: 'ערוך אורח',
+    nameRequired: 'יש להזין שם אורח',
+    visitDateRequired: 'יש להזין תאריך ביקור',
+    visitDateInvalid: 'פורמט תאריך לא תקין (YYYY-MM-DD)',
+    guestAddedTitle: 'אורח נוסף',
+    guestAddedMessage: 'האורח נוסף בהצלחה!',
+    addGuestErrorTitle: 'שגיאה',
+    addGuestErrorMessage: 'אירעה שגיאה בהוספת האורח',
   },
   
   // Validation Messages

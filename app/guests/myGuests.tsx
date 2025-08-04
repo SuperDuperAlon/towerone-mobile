@@ -1,18 +1,16 @@
-import { AddGuestForm } from '@/components/forms/AddGuestForm';
-import { Button } from '@/components/ui/Button';
 import { Strings } from '@/constants/strings';
 import { Theme } from '@/constants/theme';
-import { createGuest, deleteGuest, Guest } from '@/services/guestService';
+import { deleteGuest } from '@/services/guestService';
+import { Guest } from '@/types/guests';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 
 export default function MyGuestsScreen(): React.JSX.Element {
     const router = useRouter();
     const [guests, setGuests] = useState<Guest[]>([]);
     const [loading, setLoading] = useState(true);
-    const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
         let isMounted = true;
@@ -29,21 +27,6 @@ export default function MyGuestsScreen(): React.JSX.Element {
             isMounted = false;
         };
     }, []);
-
-
-
-
-
-
-    async function addGuest(name: string, visitDate: string) {
-        setLoading(true);
-        try {
-            const newGuest = await createGuest({ name, visitDate });
-            setGuests((prev) => [newGuest, ...prev]);
-        } finally {
-            setLoading(false);
-        }
-    }
 
     async function removeGuest(id: string) {
         setLoading(true);
@@ -62,34 +45,17 @@ export default function MyGuestsScreen(): React.JSX.Element {
         });
     }
 
-    const onRefresh = async () => {
-        setRefreshing(true);
-        try {
-            const { getGuests } = await import('@/services/guestService');
-            const data = await getGuests();
-            setGuests(data);
-        } finally {
-            setRefreshing(false);
-        }
-    };
-
-    if (loading) {
-        return (
-            <View style={styles.centered}>
-                <ActivityIndicator size="large" color={Theme.colors.primary} />
-            </View>
-        );
-    }
-
     return (
         <View style={styles.container}>
             {/* Add Guest Form */}
-            <View style={{ marginBottom: 24 }}>
-                <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 8, textAlign: 'right' }}>
+            <TouchableOpacity
+                style={styles.addButton}
+                onPress={() => router.push('/guests/addGuests')}
+            >
+                <Text style={styles.addButtonText}>
                     {Strings?.guests?.addGuestTitle || 'הוסף אורח חדש'}
                 </Text>
-                <AddGuestForm onAddGuest={addGuest} />
-            </View>
+            </TouchableOpacity>
             <Text style={styles.header}>
                 {Strings?.guests?.myGuestsTitle || 'האורחים שלי'}
             </Text>
@@ -103,12 +69,29 @@ export default function MyGuestsScreen(): React.JSX.Element {
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
                         <View style={styles.guestItem}>
-                            <Text style={styles.guestName}>{item.name}</Text>
-                            <Text style={styles.guestDate}>
-                                {Strings?.guests?.visitDateLabel || 'תאריך ביקור'}: {item.visitDate}
-                            </Text>
-                            <Button title="מחק" onPress={() => removeGuest(item.id)} />
-                            <Button title="ערוך" onPress={() => navigateToEdit(item)} />
+                            <View style={styles.guestInfo}>
+                                <Text style={styles.guestName}>{item.name}</Text>
+                                <Text style={styles.guestDate}>{item.carNumber}</Text>
+                                <Text style={styles.guestDate}>{item.phoneNumber}</Text>
+                            </View>
+                            <View style={styles.guestActions}>
+                                <TouchableOpacity
+                                    style={[styles.actionButton, styles.deleteButton]}
+                                    onPress={() => removeGuest(item.id)}
+                                >
+                                    <Text style={styles.actionButtonText}>
+                                        {Strings?.common?.delete || 'מחק'}
+                                    </Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={[styles.actionButton, styles.editButton]}
+                                    onPress={() => navigateToEdit(item)}
+                                >
+                                    <Text style={styles.actionButtonText}>
+                                        {Strings?.common?.edit || 'ערוך'}
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     )}
                     contentContainerStyle={{ paddingBottom: 24 }}
@@ -117,6 +100,7 @@ export default function MyGuestsScreen(): React.JSX.Element {
         </View>
     );
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -162,5 +146,50 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    addGuestSection: {
+        marginBottom: 24,
+    },
+    addGuestTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        textAlign: 'right',
+    },
+    guestInfo: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    guestActions: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    actionButton: {
+        paddingVertical: 6,
+        paddingHorizontal: 16,
+        borderRadius: 6,
+    },
+    deleteButton: {
+        backgroundColor: '#ff4444',
+    },
+    actionButtonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 14,
+    },
+    editButton: {
+        backgroundColor: Theme.colors.primary,
+    },
+    addButton: {
+        backgroundColor: Theme.colors.primary,
+        padding: 10,
+        borderRadius: 5,
+        marginBottom: 10,
+    },
+    addButtonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 16,
     },
 });

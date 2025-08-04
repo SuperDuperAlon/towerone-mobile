@@ -1,25 +1,23 @@
 import { Strings } from '@/constants/strings';
 import { Theme } from '@/constants/theme';
-import { Guest } from '@/services/guestService';
+import { Guest } from '@/types/guests';
 import { router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 interface EditGuestFormProps {
   guest: Guest;
-  onSave: (id: string, name: string, visitDate: string) => void;
+  onSave: (id: string, name: string, carNumber: string, phoneNumber: string) => void;
   isLoading?: boolean;
 }
 
 export function EditGuestForm({ guest, onSave, isLoading = false }: EditGuestFormProps): React.JSX.Element {
   const [name, setName] = useState(guest.name);
-  const [visitDate, setVisitDate] = useState(guest.visitDate);
   const [errors, setErrors] = useState<{ name?: string; visitDate?: string }>({});
 
   useEffect(() => {
     // Update form when guest prop changes
     setName(guest.name);
-    setVisitDate(guest.visitDate);
     setErrors({});
   }, [guest]);
 
@@ -30,19 +28,13 @@ export function EditGuestForm({ guest, onSave, isLoading = false }: EditGuestFor
       newErrors.name = 'שם האורח הוא שדה חובה';
     }
 
-    if (!visitDate.trim()) {
-      newErrors.visitDate = 'תאריך ביקור הוא שדה חובה';
-    } else {
-      // No validation for visitDate as requested
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSave = () => {
     if (validateForm()) {
-      onSave(guest.id, name.trim(), visitDate.trim());
+      onSave(guest.id, name.trim(), guest.carNumber, guest.phoneNumber);
       // After saving, navigate to the guests page
       router.push('/guests/myGuests');
     }
@@ -70,23 +62,6 @@ export function EditGuestForm({ guest, onSave, isLoading = false }: EditGuestFor
             editable={!isLoading}
           />
           {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>תאריך ביקור</Text>
-          <TextInput
-            style={[styles.input, errors.visitDate && styles.inputError]}
-            placeholder="תאריך ביקור (YYYY-MM-DD)"
-            placeholderTextColor={Theme.colors.textMuted}
-            value={visitDate}
-            onChangeText={(text) => {
-              setVisitDate(text);
-              if (errors.visitDate) setErrors(prev => ({ ...prev, visitDate: undefined }));
-            }}
-            textAlign="right"
-            editable={!isLoading}
-          />
-          {errors.visitDate && <Text style={styles.errorText}>{errors.visitDate}</Text>}
         </View>
 
         <TouchableOpacity

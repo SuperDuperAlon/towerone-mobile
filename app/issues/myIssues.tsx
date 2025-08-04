@@ -11,44 +11,35 @@ import { initializeRTL } from '@/utils/rtlConfig';
 import { ValidationRules } from '@/utils/validation';
 import React, { useEffect, useState } from 'react';
 import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  View
+    ScrollView,
+    StyleSheet,
+    Text,
+    View
 } from 'react-native';
 // Initialize RTL layout for Hebrew
 initializeRTL();
 
-
-
-
-
 export default function ReportIssueScreen(): React.JSX.Element {
   const { handleError } = useErrorHandler();
 
+  const [issues, setIssues] = useState<IssueReport[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
-
-    const [issues, setIssues] = useState<IssueReport[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<Error | null>(null);
-
-    useEffect(() => {
-      const fetchIssues = async () => {
-        setLoading(true);
-        try {
-          const data = await getIssues();
-          setIssues(data);
-        } catch (err) {
-          setError(err as Error);
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      // Fetch issues on mount
-      fetchIssues();
-
-    }, []);
+  useEffect(() => {
+    const fetchIssues = async () => {
+      setLoading(true);
+      try {
+        const data = await getIssues();
+        setIssues(data);
+      } catch (err) {
+        setError(err as Error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchIssues();
+  }, []);
 
 
   const form = useForm<IssueReportForm>({

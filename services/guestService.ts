@@ -1,11 +1,5 @@
+import { Guest } from '@/types/guests';
 import { addItem, getAllItems, removeItem, updateItem } from './localStorageService';
-
-// Guest type definition
-export type Guest = {
-  id: string;
-  name: string;
-  visitDate: string;
-};
 
 // Storage key for guests
 const GUESTS_STORAGE_KEY = 'guestsDB';
@@ -16,9 +10,11 @@ export const createGuest = async (
 ): Promise<Guest> => {
   // Generate a unique ID for the guest
   const id = Math.random().toString(36).substr(2, 9);
+  const createdAt = new Date();
   const newGuest: Guest = {
     id,
     ...guestData,
+    createdAt,
   };
   await addItem(GUESTS_STORAGE_KEY, newGuest);
   return newGuest;
@@ -29,8 +25,8 @@ export const getGuests = async (): Promise<Guest[]> => {
   const guests = await getAllItems<Guest>(GUESTS_STORAGE_KEY);
   // Sort by visitDate descending
   return guests.sort((a, b) => {
-    const dateA = new Date(a.visitDate).getTime();
-    const dateB = new Date(b.visitDate).getTime();
+    const dateA = new Date(a.createdAt).getTime();
+    const dateB = new Date(b.createdAt).getTime();
     return dateB - dateA;
   });
 };
