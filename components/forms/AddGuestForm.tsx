@@ -1,81 +1,63 @@
 import { Strings } from '@/constants/strings';
 import { Theme } from '@/constants/theme';
-import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 
 interface AddGuestFormProps {
-  onAddGuest: (name: string, visitDate: string) => void;
+  name: string;
+  carNumber: string;
+  phoneNumber: string;
+  isLoading: boolean;
+  onSave: (name: string, carNumber: string, phoneNumber: string) => void;
+  onSetName: (name: string) => void;
+  onSetCarNumber: (carNumber: string) => void;
+  onSetPhoneNumber: (phoneNumber: string) => void;
 }
 
-export function AddGuestForm({ onAddGuest }: AddGuestFormProps): React.JSX.Element {
-  const [name, setName] = useState('');
-  const [visitDate, setVisitDate] = useState('');
+export function AddGuestForm({ name, carNumber, phoneNumber, onSetName, onSetCarNumber, onSetPhoneNumber, isLoading, onSave }: AddGuestFormProps): React.JSX.Element {
 
   const handleSubmit = () => {
-    if (name.trim() && visitDate.trim()) {
-      onAddGuest(name.trim(), visitDate.trim());
-      setName('');
-      setVisitDate('');
-    }
+    onSave(name, carNumber, phoneNumber);
   };
 
   return (
-    <View style={styles.container}>
+    <View>
+      <Text>Add Guest Form</Text>
+
       <TextInput
         style={styles.input}
-        placeholder="שם האורח"
+        placeholder={Strings?.guests?.namePlaceholder || 'הכנס שם אורח'}
         placeholderTextColor={Theme.colors.textMuted}
         value={name}
-        onChangeText={setName}
+        onChangeText={onSetName}
         textAlign="right"
       />
       <TextInput
         style={styles.input}
-        placeholder="תאריך ביקור (YYYY-MM-DD)"
+        placeholder={Strings?.guests?.carNumberPlaceholder || 'הכנס מספר רכב'}
         placeholderTextColor={Theme.colors.textMuted}
-        value={visitDate}
-        onChangeText={setVisitDate}
+        value={carNumber}
+        onChangeText={onSetCarNumber}
         textAlign="right"
       />
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleSubmit}
-        disabled={!name.trim() || !visitDate.trim()}
-      >
-        <Text style={styles.buttonText}>{Strings.common.submit}</Text>
-      </TouchableOpacity>
+      <TextInput
+        style={styles.input}
+        placeholder={Strings?.guests?.phoneNumberPlaceholder || 'הכנס מספר טלפון'}
+        placeholderTextColor={Theme.colors.textMuted}
+        value={phoneNumber}
+        onChangeText={onSetPhoneNumber}
+        textAlign="right"
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: Theme.colors.card,
-    borderRadius: 10,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 1,
-  },
   input: {
     borderWidth: 1,
     borderColor: Theme.colors.border,
     borderRadius: 8,
     padding: 12,
-    marginBottom: 12,
     fontSize: 16,
-    backgroundColor: Theme.colors.background,
-  },
-  button: {
-    backgroundColor: Theme.colors.primary,
-    borderRadius: 8,
-    padding: 12,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    backgroundColor: Theme.colors.card,
   },
 }); 

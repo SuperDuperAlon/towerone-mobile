@@ -42,16 +42,16 @@ export const Strings = {
   guests: {
     myGuestsTitle: 'האורחים שלי',
     noGuests: 'אין אורחים להצגה.',
-    visitDateLabel: 'תאריך ביקור',
     addGuestTitle: 'הוסף אורח חדש',
     editGuestTitle: 'ערוך אורח',
     nameRequired: 'יש להזין שם אורח',
-    visitDateRequired: 'יש להזין תאריך ביקור',
-    visitDateInvalid: 'פורמט תאריך לא תקין (YYYY-MM-DD)',
     guestAddedTitle: 'אורח נוסף',
     guestAddedMessage: 'האורח נוסף בהצלחה!',
     addGuestErrorTitle: 'שגיאה',
     addGuestErrorMessage: 'אירעה שגיאה בהוספת האורח',
+    namePlaceholder: 'הכנס שם אורח',
+    carNumberPlaceholder: 'הכנס מספר רכב',
+    phoneNumberPlaceholder: 'הכנס מספר טלפון',
   },
   
   // Validation Messages
