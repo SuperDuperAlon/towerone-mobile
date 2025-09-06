@@ -4,7 +4,7 @@ import { updateGuest } from '@/services/guestService';
 import { Guest } from '@/types/guests';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
 export default function EditGuestsScreen(): React.JSX.Element {
     const router = useRouter();
@@ -12,45 +12,36 @@ export default function EditGuestsScreen(): React.JSX.Element {
     const [guest, setGuest] = useState<Guest | null>(null);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
+    const [name, setName] = useState('');
+    const [carNumber, setCarNumber] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
 
     useEffect(() => {
         const guestData = params.guest as string;
         if (guestData) {
-            try {
-                const parsedGuest = JSON.parse(guestData) as Guest;
-                setGuest(parsedGuest);
-                setLoading(false);
-            } catch (error) {
-                console.error('Failed to parse guest data:', error);
-                Alert.alert('שגיאה', 'לא ניתן לטעון את פרטי האורח');
-                router.back();
-            }
-        } else {
-            Alert.alert('שגיאה', 'לא נמצאו פרטי אורח');
-            router.back();
+            setGuest(JSON.parse(guestData) as Guest);
+            setLoading(false);
         }
     }, []);
 
-    const handleSave = async (id: string, name: string, carNumber: string, phoneNumber: string) => {
+    const onSetName = (name: string) => {
+        setName(name);
+    };
+
+    const onSetCarNumber = (carNumber: string) => {
+        setCarNumber(carNumber);
+    };
+    const onSetPhoneNumber = (phoneNumber: string) => {
+        setPhoneNumber(phoneNumber);
+    };
+    const onSave = (id: string, name: string, carNumber: string, phoneNumber: string) => {
         setSaving(true);
-        try {
-            const updatedGuest = await updateGuest(id, { name, carNumber, phoneNumber });
-            if (updatedGuest) {
-                Alert.alert('הצלחה', 'האורח עודכן בהצלחה', [
-                    {
-                        text: 'אישור',
-                        onPress: () => router.back(),
-                    },
-                ]);
-            } else {
-                Alert.alert('שגיאה', 'לא ניתן לעדכן את האורח');
-            }
-        } catch (error) {
-            console.error('Failed to update guest:', error);
-            Alert.alert('שגיאה', 'אירעה שגיאה בעדכון האורח');
-        } finally {
-            setSaving(false);
-        }
+        updateGuest(id, { name, carNumber, phoneNumber });
+        setSaving(false);
+    };
+
+    const handleSave = () => {
+        onSave(guest?.id || '', name, carNumber, phoneNumber);
     };
 
     if (loading) {
@@ -72,7 +63,13 @@ export default function EditGuestsScreen(): React.JSX.Element {
     return (
         <View style={styles.container}>
             <EditGuestForm
-                guest={guest}
+                id={guest.id}
+                onSetName={onSetName}
+                onSetCarNumber={onSetCarNumber}
+                onSetPhoneNumber={onSetPhoneNumber}
+                name={name}
+                carNumber={carNumber}
+                phoneNumber={phoneNumber}
                 onSave={handleSave}
                 isLoading={saving}
             />

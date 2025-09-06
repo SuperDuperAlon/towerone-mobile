@@ -1,43 +1,37 @@
 import { Strings } from '@/constants/strings';
 import { Theme } from '@/constants/theme';
-import { Guest } from '@/types/guests';
-import { router } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 interface EditGuestFormProps {
-  guest: Guest;
+  id: string;
+  name: string;
+  carNumber: string;
+  phoneNumber: string;
   onSave: (id: string, name: string, carNumber: string, phoneNumber: string) => void;
-  isLoading?: boolean;
+  isLoading?: boolean;  
+  onSetName: (name: string) => void;
+  onSetCarNumber: (carNumber: string) => void;
+  onSetPhoneNumber: (phoneNumber: string) => void;
 }
 
-export function EditGuestForm({ guest, onSave, isLoading = false }: EditGuestFormProps): React.JSX.Element {
-  const [name, setName] = useState(guest.name);
-  const [errors, setErrors] = useState<{ name?: string; visitDate?: string }>({});
+export function EditGuestForm({
+  id,
+  name,
+  carNumber,
+  phoneNumber,
+  onSave,
+  isLoading = false,
+  onSetName,
+  onSetCarNumber,
+  onSetPhoneNumber,
+}: EditGuestFormProps): React.JSX.Element {
 
-  useEffect(() => {
-    // Update form when guest prop changes
-    setName(guest.name);
-    setErrors({});
-  }, [guest]);
 
-  const validateForm = (): boolean => {
-    const newErrors: { name?: string; visitDate?: string } = {};
 
-    if (!name.trim()) {
-      newErrors.name = 'שם האורח הוא שדה חובה';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
 
   const handleSave = () => {
-    if (validateForm()) {
-      onSave(guest.id, name.trim(), guest.carNumber, guest.phoneNumber);
-      // After saving, navigate to the guests page
-      router.push('/guests/myGuests');
-    }
+    onSave(id, name, carNumber, phoneNumber);
   };
 
   return (
@@ -50,18 +44,23 @@ export function EditGuestForm({ guest, onSave, isLoading = false }: EditGuestFor
         <View style={styles.inputContainer}>
           <Text style={styles.label}>שם האורח</Text>
           <TextInput
-            style={[styles.input, errors.name && styles.inputError]}
-            placeholder="שם האורח"
-            placeholderTextColor={Theme.colors.textMuted}
             value={name}
-            onChangeText={(text) => {
-              setName(text);
-              if (errors.name) setErrors(prev => ({ ...prev, name: undefined }));
-            }}
-            textAlign="right"
-            editable={!isLoading}
+            onChangeText={onSetName}
           />
-          {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>מספר רכב</Text>
+          <TextInput
+            value={carNumber}
+            onChangeText={onSetCarNumber}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>מספר טלפון</Text>
+          <TextInput
+            value={phoneNumber}
+            onChangeText={onSetPhoneNumber}
+          />
         </View>
 
         <TouchableOpacity
